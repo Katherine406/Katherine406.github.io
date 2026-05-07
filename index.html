@@ -181,6 +181,42 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
     }
   }
 
+  function ensureResearchBlocksRestored() {
+    const researchPage = document.getElementById("page-research");
+    const insightsPage = document.getElementById("page-insights-to-features");
+    if (!researchPage || !insightsPage) return;
+
+    const researchStack = researchPage.querySelector(".body .stack");
+    const insightsStack = insightsPage.querySelector(".body .stack");
+    if (!researchStack || !insightsStack) return;
+
+    const findCardByMini = (root, miniText) => {
+      const mini = Array.from(root.querySelectorAll(".mini")).find(
+        (node) => node.textContent.trim() === miniText
+      );
+      return mini ? mini.closest(".card") : null;
+    };
+
+    const personaCard = findCardByMini(insightsStack, "USER PERSONAS & INSIGHTS");
+    const journeyCard = findCardByMini(insightsStack, "USER JOURNEY MAP");
+    const requirementCard = findCardByMini(insightsStack, "REQUIREMENTS LIST");
+    const gapCard = findCardByMini(researchStack, "GAP ANALYSIS");
+
+    if (!personaCard || !journeyCard || !requirementCard) return;
+
+    // Move cards to research section with required order:
+    // GAP ANALYSIS -> PERSONA -> USER JOURNEY MAP -> REQUIREMENTS LIST
+    if (gapCard) {
+      gapCard.insertAdjacentElement("afterend", personaCard);
+      personaCard.insertAdjacentElement("afterend", journeyCard);
+      journeyCard.insertAdjacentElement("afterend", requirementCard);
+    } else {
+      researchStack.appendChild(personaCard);
+      researchStack.appendChild(journeyCard);
+      researchStack.appendChild(requirementCard);
+    }
+  }
+
   function ensureReflectionPage() {
     if (!main || document.getElementById("page-reflection")) return;
 
@@ -1063,6 +1099,7 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
 
   ensureDesignAlternatives();
   ensureImplementationArchitecture();
+  ensureResearchBlocksRestored();
   ensureReflectionPage();
   ensureHomeModulesAndTimelineBadge();
   ensurePrototypingTransformationAccordion();
