@@ -504,6 +504,60 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
     });
   }
 
+  function applyComicTailwindStructure() {
+    const accentClasses = ["bg-indigo-50", "bg-purple-50", "bg-blue-50"];
+    const comicCardTokens = [
+      "bg-white",
+      "border-2",
+      "border-slate-900",
+      "rounded-2xl",
+      "shadow-[4px_4px_0_0_#0f172a]",
+      "overflow-hidden",
+    ];
+
+    const pageNodes = Array.from(document.querySelectorAll(".page"));
+    pageNodes.forEach((page, idx) => {
+      accentClasses.forEach((cls) => page.classList.remove(cls));
+      page.classList.add(accentClasses[idx % accentClasses.length]);
+    });
+
+    document.querySelectorAll(".page .body").forEach((body) => {
+      body.classList.add("py-16", "px-4", "sm:px-6", "max-w-5xl", "mx-auto");
+    });
+
+    document
+      .querySelectorAll(".stack,.g2,.g3,.mods,.sketch-grid,.evidence-grid,.ab-grid,.module-summary-grid")
+      .forEach((grid) => grid.classList.add("gap-6"));
+
+    document.querySelectorAll(".page .card,.page .table").forEach((card) => {
+      comicCardTokens.forEach((token) => card.classList.add(token));
+      card.classList.add("p-6");
+    });
+
+    document.querySelectorAll(".page h1,.page h2").forEach((title) => {
+      title.classList.add("font-black", "text-slate-900", "tracking-tight");
+    });
+
+    document.querySelectorAll(".page p,.page li,.page td,.page th").forEach((text) => {
+      text.classList.add("text-slate-700", "leading-relaxed", "text-base");
+    });
+
+    document.querySelectorAll(".page img").forEach((img) => {
+      img.classList.add("rounded-xl", "border", "border-slate-200");
+    });
+
+    document
+      .querySelectorAll(".page a,.page button,.nav a")
+      .forEach((el) =>
+        el.classList.add(
+          "hover:-translate-y-1",
+          "hover:shadow-[6px_6px_0_0_#0f172a]",
+          "transition-all",
+          "duration-200"
+        )
+      );
+  }
+
   function enforceTabbedDisplay() {
     const styleId = "tabbed-view-override";
     if (document.getElementById(styleId)) return;
@@ -961,6 +1015,41 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
         color:#223b72;
         font:700 13px/1.4 Arial;
       }
+      .page{
+        border:none!important;
+        box-shadow:none!important;
+      }
+      .page .body{
+        padding-top:4rem!important;
+        padding-bottom:4rem!important;
+      }
+      .page .body > * + *{
+        margin-top:1.5rem!important;
+      }
+      .page .card,.page .table{
+        border:2px solid #0f172a!important;
+        border-radius:1rem!important;
+        box-shadow:4px 4px 0 0 #0f172a!important;
+        overflow:hidden!important;
+      }
+      .page p,.page li,.page td,.page th{
+        color:#334155!important;
+        line-height:1.75!important;
+        font-size:1rem!important;
+        text-shadow:none!important;
+      }
+      .page h1,.page h2{
+        color:#0f172a!important;
+        letter-spacing:-.01em;
+      }
+      .page img{
+        border-radius:.75rem!important;
+        border:1px solid #e2e8f0!important;
+      }
+      .page a:hover,.page button:hover,.nav a:hover{
+        transform:translateY(-3px);
+        box-shadow:6px 6px 0 0 #0f172a!important;
+      }
       @media(max-width:900px){
         .module-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
         .ab-grid{grid-template-columns:1fr}
@@ -979,6 +1068,7 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
   ensurePrototypingTransformationAccordion();
   ensurePrototypingImageViewer();
   normalizePageHeadings();
+  applyComicTailwindStructure();
   enforceTabbedDisplay();
   setupInteractions();
   showView("home");
