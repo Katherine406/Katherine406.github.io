@@ -1179,10 +1179,14 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
       <p>We compared two navigation layouts during prototyping to evaluate usability and interaction flow on mobile devices.</p>
       <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;margin-top:8px">
         <figure class="evidence-photo feedback-full" style="margin:0;max-width:360px;justify-self:end;width:100%">
-          <img src="assets/diagrams/p1.png" alt="Design Alternative 1" style="width:100%;height:auto;max-height:420px;object-fit:contain">
+          <div style="position:relative;width:100%;min-height:300px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+            <img src="assets/diagrams/p1.png" alt="Design Alternative 1" style="position:relative;z-index:1;width:100%;height:auto;max-height:420px;object-fit:contain" loading="lazy" onload="this.parentElement.style.minHeight='0'" onerror="this.style.display='none';this.parentElement.style.minHeight='220px'">
+          </div>
         </figure>
         <figure class="evidence-photo feedback-full" style="margin:0;max-width:360px;justify-self:start;width:100%">
-          <img src="assets/diagrams/p2.png" alt="Design Alternative 2" style="width:100%;height:auto;max-height:420px;object-fit:contain">
+          <div style="position:relative;width:100%;min-height:300px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+            <img src="assets/diagrams/p2.png" alt="Design Alternative 2" style="position:relative;z-index:1;width:100%;height:auto;max-height:420px;object-fit:contain" loading="lazy" onload="this.parentElement.style.minHeight='0'" onerror="this.style.display='none';this.parentElement.style.minHeight='220px'">
+          </div>
         </figure>
       </div>
       <div class="table" style="margin-top:12px">
