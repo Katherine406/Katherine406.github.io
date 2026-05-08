@@ -1109,6 +1109,9 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
     const prototypeChip = body.querySelector(".tt-wrap span");
     if (prototypeChip) {
       prototypeChip.textContent = "Prototype Transformation";
+      prototypeChip.classList.add("mini");
+      prototypeChip.style.font = "";
+      prototypeChip.style.letterSpacing = "1.1px";
     }
 
     const timelineWrap = body.querySelector(".tt-wrap");
@@ -1158,6 +1161,39 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
           <a class="system-entry-cta" href="https://unibuddy.xjtluer.com/" target="_blank" rel="noreferrer">Dive into the Live UniBuddy Experience</a>
         </article>`;
       timelineWrap.appendChild(linksBlock);
+    }
+  }
+
+  function ensurePrototypingDesignAlternatives() {
+    const prototypingPage = document.getElementById("page-iterative-prototyping");
+    if (!prototypingPage) return;
+    const body = prototypingPage.querySelector(".body");
+    if (!body || body.querySelector('[data-block="design-alternatives"]')) return;
+
+    const block = document.createElement("article");
+    block.className = "card blue";
+    block.setAttribute("data-block", "design-alternatives");
+    block.style.marginTop = "16px";
+    block.innerHTML = `
+      <div class="mini">Design Alternatives</div>
+      <p>We compared two navigation layouts during prototyping to evaluate usability and interaction flow on mobile devices.</p>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;margin-top:8px">
+        <figure class="evidence-photo feedback-full" style="margin:0;max-width:360px;justify-self:end;width:100%">
+          <img src="assets/diagrams/p1.png" alt="Design Alternative 1" style="width:100%;height:auto;max-height:420px;object-fit:contain">
+        </figure>
+        <figure class="evidence-photo feedback-full" style="margin:0;max-width:360px;justify-self:start;width:100%">
+          <img src="assets/diagrams/p2.png" alt="Design Alternative 2" style="width:100%;height:auto;max-height:420px;object-fit:contain">
+        </figure>
+      </div>
+      <div class="table" style="margin-top:12px">
+        <p><b>Why we chose Alternative 2:</b> The second layout provides a navigation structure that better matches mobile usage habits. Core actions are easier to reach with one-handed operation, the hierarchy is clearer, and users can switch between sections more naturally while walking.</p>
+      </div>`;
+
+    const timelineWrap = body.querySelector(".tt-wrap");
+    if (timelineWrap) {
+      timelineWrap.insertAdjacentElement("afterend", block);
+    } else {
+      body.appendChild(block);
     }
   }
 
@@ -2256,9 +2292,20 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
         border-radius:999px;
         padding:3px 9px;
         box-shadow:0 2px 0 #17306d;
+        transition:transform .18s ease,box-shadow .18s ease,background-color .18s ease;
       }
       .feedback-accordion-hint::before{content:"Expand"}
       .feedback-accordion[open] .feedback-accordion-hint::before{content:"Collapse"}
+      .feedback-accordion summary:hover .feedback-accordion-hint,
+      .feedback-accordion summary:focus-visible .feedback-accordion-hint{
+        transform:translateY(-2px) scale(1.04);
+        box-shadow:0 4px 0 #17306d;
+        background:#fff4a6;
+      }
+      .feedback-accordion summary:hover,
+      .feedback-accordion summary:focus-visible{
+        filter:brightness(1.02);
+      }
       .feedback-accordion-panel{
         padding:12px;
         background:#f9fbff;
@@ -2352,9 +2399,20 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
         border-radius:999px;
         padding:3px 9px;
         box-shadow:0 2px 0 #17306d;
+        transition:transform .18s ease,box-shadow .18s ease,background-color .18s ease;
       }
       .proto-step-hint::before{content:"Expand"}
       .proto-step[open] .proto-step-hint::before{content:"Collapse"}
+      .proto-step summary:hover .proto-step-hint,
+      .proto-step summary:focus-visible .proto-step-hint{
+        transform:translateY(-2px) scale(1.04);
+        box-shadow:0 4px 0 #17306d;
+        background:#fff4a6;
+      }
+      .proto-step summary:hover,
+      .proto-step summary:focus-visible{
+        filter:brightness(1.02);
+      }
       .proto-step .tt-content{
         margin:0!important;
         border:0!important;
@@ -2707,6 +2765,7 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
   ensureReflectionPage();
   ensureHomeModulesAndTimelineBadge();
   ensurePrototypingTransformationAccordion();
+  ensurePrototypingDesignAlternatives();
   removePreferenceTestingBlock();
   ensurePrototypingImageViewer();
   normalizePageHeadings();
