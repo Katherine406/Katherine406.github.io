@@ -365,7 +365,7 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
       if (oldTip) oldTip.remove();
       const tip = document.createElement("span");
       tip.className = "vibe-copy-tooltip" + (ok ? "" : " vibe-copy-tooltip--fail");
-      tip.textContent = ok ? "Copy successful" : "Copy failed";
+      tip.textContent = ok ? "Copy successfully" : "Copy failed";
       tip.setAttribute("role", "status");
       btn.appendChild(tip);
       window.clearTimeout(btn._vibeCopyTid);
