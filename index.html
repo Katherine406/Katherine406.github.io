@@ -1464,20 +1464,46 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
     block.innerHTML = `
       <div class="mini">Design Alternatives</div>
       <p>We compared two navigation layouts during prototyping to evaluate usability and interaction flow on mobile devices.</p>
-      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;margin-top:8px">
-        <figure class="evidence-photo feedback-full" style="margin:0;max-width:360px;justify-self:end;width:100%">
+      <div class="proto-design-alt-grid">
+        <div class="proto-design-alt-text">
+          <h4 class="proto-design-alt-title">Alternative 1: Sidebar Navigation (Navigation Drawer)</h4>
+          <ul class="proto-design-alt-list">
+            <li class="proto-design-alt-point">
+              <span class="proto-design-alt-tag">High Screen Real Estate:</span>
+              <p class="proto-design-alt-desc">By hiding the menu, this layout maximizes the display area for core visual content.</p>
+            </li>
+            <li class="proto-design-alt-point">
+              <span class="proto-design-alt-tag">Scalable Menu Structure:</span>
+              <p class="proto-design-alt-desc">It allows for a larger number of navigation items and secondary settings without cluttering the main interface.</p>
+            </li>
+          </ul>
+        </div>
+        <figure class="evidence-photo feedback-full proto-design-alt-figure" style="margin:0;width:100%">
           <div style="position:relative;width:100%;min-height:300px;display:flex;align-items:center;justify-content:center;overflow:hidden">
             <img src="assets/diagrams/p1.png" alt="Design Alternative 1" style="position:relative;z-index:1;width:100%;height:auto;max-height:420px;object-fit:contain" loading="lazy" onload="this.parentElement.style.minHeight='0'" onerror="this.style.display='none';this.parentElement.style.minHeight='220px'">
           </div>
         </figure>
-        <figure class="evidence-photo feedback-full" style="margin:0;max-width:360px;justify-self:start;width:100%">
+        <figure class="evidence-photo feedback-full proto-design-alt-figure" style="margin:0;width:100%">
           <div style="position:relative;width:100%;min-height:300px;display:flex;align-items:center;justify-content:center;overflow:hidden">
             <img src="assets/diagrams/p2.png" alt="Design Alternative 2" style="position:relative;z-index:1;width:100%;height:auto;max-height:420px;object-fit:contain" loading="lazy" onload="this.parentElement.style.minHeight='0'" onerror="this.style.display='none';this.parentElement.style.minHeight='220px'">
           </div>
         </figure>
+        <div class="proto-design-alt-text">
+          <h4 class="proto-design-alt-title">Alternative 2: Bottom Navigation Bar</h4>
+          <ul class="proto-design-alt-list">
+            <li class="proto-design-alt-point">
+              <span class="proto-design-alt-tag">Superior Reachability:</span>
+              <p class="proto-design-alt-desc">The navigation is positioned within the "thumb-zone," making it ideal for one-handed operation while the user is mobile.</p>
+            </li>
+            <li class="proto-design-alt-point">
+              <span class="proto-design-alt-tag">High Visibility &amp; Discoverability:</span>
+              <p class="proto-design-alt-desc">The core features are always visible, which reduces cognitive load and allows for instant switching between sections.</p>
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="table" style="margin-top:12px">
-        <p><b>Why we chose Alternative 2:</b> The second layout provides a navigation structure that better matches mobile usage habits. Core actions are easier to reach with one-handed operation, the hierarchy is clearer, and users can switch between sections more naturally while walking.</p>
+        <p><b>Why we chose Alternative 2:</b> The second layout provides a navigation structure that better matches mobile usage habits. We selected this option because core actions are easier to reach with one-handed operation, the hierarchy is clearer, and users can switch between sections more naturally while walking. This choice directly addresses the human-centric need for a seamless and "playful" experience during onsite exploration.</p>
       </div>`;
 
     const timelineWrap = body.querySelector(".tt-wrap");
@@ -2914,6 +2940,62 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
         color:#223b72;
         font:700 13px/1.4 Arial;
       }
+      .proto-design-alt-grid{
+        display:grid;
+        grid-template-columns:minmax(0,1.35fr) minmax(0,250px) minmax(0,250px) minmax(0,1.35fr);
+        gap:14px 14px;
+        align-items:start;
+        margin-top:10px;
+      }
+      .proto-design-alt-text{
+        min-width:0;
+      }
+      .proto-design-alt-title{
+        margin:0 0 8px;
+        font:800 15px/1.35 "Trebuchet MS","PingFang SC",sans-serif;
+        color:#17306d;
+      }
+      .proto-design-alt-list{
+        margin:0;
+        padding:0;
+        list-style:none;
+        font-size:15px;
+        line-height:1.55;
+        color:#334155;
+      }
+      .proto-design-alt-point{
+        margin:0 0 12px;
+      }
+      .proto-design-alt-point:last-child{
+        margin-bottom:0;
+      }
+      .proto-design-alt-tag{
+        display:inline-block;
+        box-sizing:border-box;
+        max-width:100%;
+        margin:0 0 5px;
+        padding:1px 6px 2px;
+        font:800 10px/1.2 Arial,"PingFang SC",sans-serif;
+        letter-spacing:.01em;
+        color:#17306d;
+        background:#fff9bf;
+        border:2px solid #17306d;
+        border-radius:6px;
+        box-shadow:0 2px 0 #17306d;
+        white-space:nowrap;
+        vertical-align:top;
+      }
+      .proto-design-alt-desc{
+        margin:0;
+        padding:0;
+        font-size:15px;
+        line-height:1.55;
+        color:#334155;
+      }
+      .proto-design-alt-figure{
+        max-width:300px;
+        justify-self:center;
+      }
       .page{
         border:none!important;
         box-shadow:none!important;
@@ -3032,6 +3114,8 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
         text-align:left!important;
       }
       @media(max-width:900px){
+        .proto-design-alt-grid{grid-template-columns:1fr}
+        .proto-design-alt-figure{max-width:360px}
         .module-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
         .ab-grid{grid-template-columns:1fr}
         .evidence-split-grid{grid-template-columns:1fr}
