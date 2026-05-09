@@ -2760,10 +2760,33 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
         width:200px!important;
         height:400px!important;
       }
+      .proto-step:nth-of-type(2) .tt-row3{
+        display:grid!important;
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        gap:40px;
+        align-items:stretch;
+      }
+      .proto-step:nth-of-type(2) .tt-row3>.img-load-wrap{
+        flex:none!important;
+        width:100%!important;
+        min-width:0!important;
+        height:400px!important;
+        display:flex!important;
+        align-items:center;
+        justify-content:center;
+        vertical-align:unset;
+        border-radius:16px;
+        overflow:hidden;
+        background:linear-gradient(165deg,#dfeaff,#e8f4ff 45%,#eef6ff);
+        border:2px solid rgba(23,48,109,.2);
+        box-sizing:border-box;
+      }
       .proto-step:nth-of-type(2) .tt-row3 img{
-        height:360px!important;
-        width:auto!important;
-        max-width:32%!important;
+        width:100%!important;
+        height:100%!important;
+        max-width:none!important;
+        max-height:none!important;
+        object-fit:contain!important;
       }
       .proto-link-grid{
         margin-top:14px;
@@ -2804,10 +2827,11 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
           width:170px!important;
           height:340px!important;
         }
-        .proto-step:nth-of-type(2) .tt-row3 img{
-          height:300px!important;
-          width:auto!important;
-          max-width:32%!important;
+        .proto-step:nth-of-type(2) .tt-row3{
+          gap:16px;
+        }
+        .proto-step:nth-of-type(2) .tt-row3>.img-load-wrap{
+          height:340px!important;
         }
       }
       .proto-clickable-image{
