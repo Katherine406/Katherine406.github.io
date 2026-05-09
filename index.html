@@ -339,15 +339,21 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
         "border:2px solid #17306d;border-radius:8px;background:linear-gradient(180deg,#fff,#eef4ff);" +
         "color:#17306d;cursor:pointer;box-shadow:0 2px 0 #17306d;white-space:nowrap}" +
         "#page-vibe-workflow .vibe-copy-btn--icon{" +
-        "padding:6px 10px;min-width:36px;display:inline-flex;align-items:center;justify-content:center;" +
+        "position:relative;padding:6px 10px;min-width:36px;display:inline-flex;align-items:center;justify-content:center;" +
         "color:#334155}" +
         "#page-vibe-workflow .vibe-copy-btn--icon .vibe-copy-icon{display:block}" +
+        "#page-vibe-workflow .vibe-copy-tooltip{" +
+        "position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);" +
+        "padding:6px 10px;background:#24292f;color:#fff;font:600 12px/1.25 Arial,'PingFang SC',sans-serif;" +
+        "border-radius:6px;white-space:nowrap;z-index:100;pointer-events:none;" +
+        "box-shadow:0 4px 14px rgba(15,23,42,.22)}" +
+        "#page-vibe-workflow .vibe-copy-tooltip--fail{background:#450a0a}" +
         "#page-vibe-workflow .vibe-copy-btn:hover{background:#fffef4}" +
         "#page-vibe-workflow .vibe-copy-btn--icon:hover{color:#1e293b}" +
         "#page-vibe-workflow .vibe-copy-btn:active{transform:translateY(1px);box-shadow:0 1px 0 #17306d}" +
         "#page-vibe-workflow .vibe-copy-btn.copied{background:#caf1df;border-color:#0f7a4d;color:#0b5}" +
         "#page-vibe-workflow .vibe-copy-btn--icon.copied{color:#0b5}" +
-        "#page-vibe-workflow .vibe-pre-wrap{position:relative;margin:0}" +
+        "#page-vibe-workflow .vibe-pre-wrap{position:relative;margin:0;overflow:visible!important}" +
         "#page-vibe-workflow .vibe-pre-wrap .vibe-copy-btn{position:absolute;top:8px;right:8px;z-index:2}" +
         "#page-vibe-workflow .vibe-pre-wrap pre{padding-top:40px}";
       document.head.appendChild(s);
@@ -355,17 +361,18 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
 
     const copyFeedback = (btn, ok) => {
       btn.classList.toggle("copied", ok);
-      if (!btn.hasAttribute("data-vibe-title-prev")) {
-        btn.setAttribute("data-vibe-title-prev", btn.getAttribute("title") || "");
-      }
-      btn.setAttribute("title", ok ? "Copied!" : "Copy failed");
+      const oldTip = btn.querySelector(".vibe-copy-tooltip");
+      if (oldTip) oldTip.remove();
+      const tip = document.createElement("span");
+      tip.className = "vibe-copy-tooltip" + (ok ? "" : " vibe-copy-tooltip--fail");
+      tip.textContent = ok ? "Copy successful" : "Copy failed";
+      tip.setAttribute("role", "status");
+      btn.appendChild(tip);
       window.clearTimeout(btn._vibeCopyTid);
       btn._vibeCopyTid = window.setTimeout(() => {
+        tip.remove();
         btn.classList.remove("copied");
-        const p = btn.getAttribute("data-vibe-title-prev");
-        if (p) btn.setAttribute("title", p);
-        else btn.removeAttribute("title");
-      }, 1600);
+      }, 2200);
     };
 
     const writeClipboard = (text, btn) => {
@@ -529,11 +536,11 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
           <p>While traditional virtual campus tours effectively provide spatial information, they often struggle to create emotional engagement. Prior studies on location-based interaction and gamification show that playful mechanisms can increase movement motivation and exploration. This supports UniBuddy’s core design direction: transforming cold navigation into a social, playful campus experience.</p>
           <h4 class="gap-subtitle">References</h4>
           <ol class="gap-ref-list text-sm text-slate-600">
-            <li>Y. Liu et al., <i>Design and Implementation of Intelligent Tour Guide Application System</i>, 2022, <a class="link-blue" href="https://doi.org/10.1109/ITAIC54357.2022.9836511" target="_blank" rel="noreferrer">doi:10.1109/ITAIC54357.2022.9836511 ↗</a></li>
+            <li>Y. Liu et al., <i>Design and Implementation of Intelligent Tour Guide Application System</i>, 2022, <a class="link-blue" href="https://ieeexplore.ieee.org/abstract/document/9836651" target="_blank" rel="noreferrer">doi:10.1109/ITAIC54357.2022.9836511 ↗</a></li>
             <li>S. R. Shukla et al., <i>Destiny—A Campus Virtual Tour</i>, 2023. <a class="link-blue" href="https://www.researchgate.net/profile/Vivek-Gupta-98/publication/378152221_Destiny_-_A_Campus_Virtual_Tour/links/65caad7d1e1ec12eff8a6b84/Destiny-A-Campus-Virtual-Tour.pdf" target="_blank" rel="noreferrer">PDF ↗</a></li>
             <li>C. Andri et al., <i>Adoption of Mobile Augmented Reality as a Campus Tour Application</i>, 2018. <a class="link-blue" href="https://www.researchgate.net/profile/Amira-Sallow/publication/328273465_Adoption_of_Mobile_Augmented_Reality_as_a_Campus_Tour_Application/links/5c6f14fc458515831f6510fd/Adoption-of-Mobile-Augmented-Reality-as-a-Campus-Tour-Application.pdf" target="_blank" rel="noreferrer">PDF ↗</a></li>
             <li>Suwarno and N. P. Murnaka, <i>Virtual Campus Tour</i>, 2020. <a class="link-blue" href="https://www.researchgate.net/profile/Nerru-Murnaka-2/publication/356584493_Virtual_Campus_Tour_Student_Perception_of_University_virtual_Environment/links/61a2367a7323543e210d5ba3/Virtual-Campus-Tour-Student-Perception-of-University-virtual-Environment.pdf" target="_blank" rel="noreferrer">PDF ↗</a></li>
-            <li>S. Laato et al., <i>How Location-Based Games Incentivize Moving About</i>, 2023, <a class="link-blue" href="https://doi.org/10.1145/3611051" target="_blank" rel="noreferrer">doi:10.1145/3611051 ↗</a></li>
+            <li>S. Laato et al., <i>How Location-Based Games Incentivize Moving About</i>, 2023, <a class="link-blue" href="https://dl.acm.org/doi/abs/10.1145/3611044" target="_blank" rel="noreferrer">doi:10.1145/3611051 ↗</a></li>
           </ol>
         </article>
 
@@ -1199,7 +1206,7 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
               </div>
               <div class="phase-chip" style="--chip:#FCD34D">W9-W10: EVALUATION & REFLECTION</div>
               <ul>
-                <li>Heuristic Evaluation</li>
+                <li>Preference Testing</li>
                 <li>SUS Usability Testing</li>
                 <li>Technical & Ethical Reflection</li>
               </ul>
@@ -1614,6 +1621,9 @@ git push -u origin main</pre><p><b>Step 2: Configure GitHub Pages</b><br>Setting
       if (feedbackCard) {
         feedbackCard.querySelectorAll(".uf-shot-grid img").forEach(bindViewerTarget);
       }
+      evaluationPage
+        .querySelectorAll('[data-block="design-alternatives"] .ab-shots img')
+        .forEach(bindViewerTarget);
     }
   }
 
